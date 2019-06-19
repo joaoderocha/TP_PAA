@@ -5,8 +5,7 @@
 #include <unordered_set>
 #include <algorithm>
 #include <chrono>
-
-
+#include <cmath>
 
 
 using namespace std;
@@ -18,6 +17,8 @@ void maximumIndependent(vector<unordered_set<int>>const&, unordered_set<int>, un
 //int maximumIndependent2(vector<unordered_set<int>> , unordered_set<int> , unordered_set<int> );
 bool check(const vector<unordered_set<int>>& );
 int greedy(vector<unordered_set<int>> );
+int countEdge(vector<unordered_set<int>>const& , unordered_set<int>const& );
+int teste(int n, int m);
 int bs = 0;
 
 int main() {
@@ -46,6 +47,7 @@ int main() {
     cout << fixed << time_span.count();
 
 
+
     return 0;
 }
 
@@ -59,21 +61,21 @@ void maximumIndependent(vector<unordered_set<int>>const& G, unordered_set<int> I
     int aux = *A.begin();
     A.erase(aux);
     unordered_set<int> A1(A); // Elementos que podem ser usados
-    if(I.find(aux) == I.end()){ // Se aux pode ser adicionado na solucao atual
+    if(I.insert(aux).second){ // Se aux pode ser adicionado na solucao atual
 
         for(auto a : G[aux-1]){ // tira dos que podem ser adicionados a solucao os vizinhos de aux
             A.erase(a);
         }
-        unordered_set<int> A2(A); //
-        I.insert(aux);
+        unordered_set<int> A2(A);
         unordered_set<int> I2(I);
         I.erase(aux);
-        if(I.size()+A.size() > bs)
-            maximumIndependent(G,I,A1);
-        if(I.size()+A2.size()+1 > bs) {
+        if(teste(A2.size(),countEdge(G,A2)) > bs) {
             maximumIndependent(G, I2, A2);
             if (I.size() + 1 > bs) bs = I.size() + 1;
         }
+        if(teste(A2.size(),countEdge(G,A2)) > bs)
+            maximumIndependent(G,I,A1);
+
     }else{
         maximumIndependent(G,I,A1);
     }
@@ -168,4 +170,31 @@ bool check(const vector<unordered_set<int>>& G){
         }
     }
     return false;
+}
+
+/*
+ * Conta quantidade de arestas 'counter' em uma lista de vertices A, de um grafo G
+ *
+ *
+ *
+ * 1 - Inicializa contador
+ * 2 - Para cada elemento presente em A, verifique em G o numero de adjacentes.
+ * 3 - retorne n/2
+ */
+int countEdge(vector<unordered_set<int>>const& G, unordered_set<int>const& A){
+    int counter=0;
+    for(int pos : A){
+        for(int pos2 : G[pos-1]){
+           if(A.find(pos2)!= A.end()){
+                counter++;
+           }
+        }
+    }
+    return floor(counter/2);
+}
+/*
+ * Um grafo de n vertices e m arestas nao pode ter um conjunto independente maximo maior do que o resultado da formula a seguir
+ */
+int teste(int n, int m){
+    return floor((1 + sqrt(1-8*m - 4*n + 4*pow(n,2)))/2);
 }
