@@ -1,11 +1,12 @@
 #include "MIS.h"
 
 unordered_set<int> solution;
-int bst = 0;
+//int bst = 0;
+int ninst =0;
 
 int findMSI() {
 
-    vector<unordered_set<int>> G = loadGraphComplemento(); // inicializo lista de adjacencias para cada vertice
+    vector<unordered_set<int>> G = loadGraph(); // inicializo lista de adjacencias para cada vertice
 #if defined(DEBUG)
     int i=0;
     for(const auto& a: G){
@@ -26,35 +27,37 @@ int findMSI() {
     }
     // Inicializa o conjunto de solucoes vazio
     I.empty();
-    //maximumIndependent2(G,I,A);
     auto t1 = high_resolution_clock::now();
-    bst = 0;//greedy(G);
-    maximumIndependent(G,I,A);
+    best = 0;//greedy(G);
+    best = maximumIndependent(G,I,A,best);
     auto t2 = high_resolution_clock::now();
     duration<double> time_span = duration_cast<duration<double> >(t2 - t1);
     // Inicia a busca pelo conjunto independente maximo
     cout << endl;
 
-    cout << "MIS: " << bst << " elementos: ";
+    cout << "MIS: " << best << " elementos: ";
     for(auto a : solution){
         cout << a << " ";
     }
     cout <<" Tempo gasto: ";
     cout.precision(5);
     cout << fixed << time_span.count();
-
-
+    cout << " segundos";
+#if defined(DEBUG)
+    cout << endl << ninst;
+#endif
 
     return 0;
 }
 
-void maximumIndependent(vector<unordered_set<int>>const& G, unordered_set<int> I, unordered_set<int> A){
-
+int maximumIndependent(vector<unordered_set<int>>const& G, unordered_set<int> I, unordered_set<int> A,int bi){
+    int bs=0;
 
     if(A.empty()){
-        return;
+        return I.size();
     }
 #if defined(DEBUG)
+    ninst++;
     if(I.size() == 4){
         cout << "stop!";
     }
@@ -82,28 +85,30 @@ void maximumIndependent(vector<unordered_set<int>>const& G, unordered_set<int> I
                 A.erase(a);
             }
         }
-        unordered_set<int> A2(A); // copia dos adjacentes da melhor solucao
-        unordered_set<int> I2(I); // copia da melhor solucao
+        unordered_set<int> A2(A); // copia dos adjacentes da melhor solucao atual
+        unordered_set<int> I2(I); // copia da melhor solucao atual
 
         I.erase(aux);
-        if(teste(A2.size(),countEdge(G,A2)) > bst) {
-            maximumIndependent(G, I2, A2);
-            if (I.size() + 1 > bst) {
-                solution = I2;
-                bst = I.size() + 1;
-            }
+
+        if(teste(G.size(),countEdge(G,A2)) > bi) {
+            bs = maximumIndependent(G, I2, A2, I2.size());
+        }
+        if(teste(G.size(),countEdge(G,A1)) > bi) {
+            bs = max(maximumIndependent(G, I, A1, I.size()), bs);
+        }
+        if(solution.size() < I2.size()){
+            solution = I2;
         }
 #if defined(DEBUG)
-        cout << " test: " << teste(A2.size(),countEdge(G,A2));
-        cout << " \n bst: " << bst;
+        cout << " \n bst: " << bs;
 #endif
-        if(teste(A2.size(),countEdge(G,A2)) > bst)
-            maximumIndependent(G,I,A1);
+
 
     }else{
-        maximumIndependent(G,I,A1);
+        if(teste(G.size(),countEdge(G,A1)) > bi)
+            bs = maximumIndependent(G,I,A1,I.size());
     }
-
+    return bs;
 }
 
 /*
