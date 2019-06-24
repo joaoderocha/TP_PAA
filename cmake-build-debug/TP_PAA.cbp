@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/jharo/CLionProjects/TP_PAA/MIS.cpp">
+			<Option target="TP_PAA"/>
+		</Unit>
+		<Unit filename="C:/Users/jharo/CLionProjects/TP_PAA/MIS.h">
+			<Option target="TP_PAA"/>
+		</Unit>
 		<Unit filename="C:/Users/jharo/CLionProjects/TP_PAA/main.cpp">
 			<Option target="TP_PAA"/>
 		</Unit>

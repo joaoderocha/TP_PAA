@@ -6,7 +6,11 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/jharo/CLionProjects/TP_PAA/main.cpp
+C:/Users/jharo/CLionProjects/TP_PAA/MIS.cpp
+MIS.h
+C:/Users/jharo/CLionProjects/TP_PAA/MIS.h
+
+C:/Users/jharo/CLionProjects/TP_PAA/MIS.h
 iostream
 -
 fstream

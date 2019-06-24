@@ -122,6 +122,33 @@ TP_PAA/fast:
 	$(MAKE) -f CMakeFiles\TP_PAA.dir\build.make CMakeFiles/TP_PAA.dir/build
 .PHONY : TP_PAA/fast
 
+MIS.obj: MIS.cpp.obj
+
+.PHONY : MIS.obj
+
+# target to build an object file
+MIS.cpp.obj:
+	$(MAKE) -f CMakeFiles\TP_PAA.dir\build.make CMakeFiles/TP_PAA.dir/MIS.cpp.obj
+.PHONY : MIS.cpp.obj
+
+MIS.i: MIS.cpp.i
+
+.PHONY : MIS.i
+
+# target to preprocess a source file
+MIS.cpp.i:
+	$(MAKE) -f CMakeFiles\TP_PAA.dir\build.make CMakeFiles/TP_PAA.dir/MIS.cpp.i
+.PHONY : MIS.cpp.i
+
+MIS.s: MIS.cpp.s
+
+.PHONY : MIS.s
+
+# target to generate assembly for a file
+MIS.cpp.s:
+	$(MAKE) -f CMakeFiles\TP_PAA.dir\build.make CMakeFiles/TP_PAA.dir/MIS.cpp.s
+.PHONY : MIS.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -158,6 +185,9 @@ help:
 	@echo ... TP_PAA
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... MIS.obj
+	@echo ... MIS.i
+	@echo ... MIS.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
