@@ -59,28 +59,28 @@ include CMakeFiles/TP_PAA.dir/flags.make
 CMakeFiles/TP_PAA.dir/main.cpp.obj: CMakeFiles/TP_PAA.dir/flags.make
 CMakeFiles/TP_PAA.dir/main.cpp.obj: ../main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jharo\CLionProjects\TP_PAA\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/TP_PAA.dir/main.cpp.obj"
-	C:\MinGW\bin\c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\TP_PAA.dir\main.cpp.obj -c C:\Users\jharo\CLionProjects\TP_PAA\main.cpp
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\TP_PAA.dir\main.cpp.obj -c C:\Users\jharo\CLionProjects\TP_PAA\main.cpp
 
 CMakeFiles/TP_PAA.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TP_PAA.dir/main.cpp.i"
-	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jharo\CLionProjects\TP_PAA\main.cpp > CMakeFiles\TP_PAA.dir\main.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jharo\CLionProjects\TP_PAA\main.cpp > CMakeFiles\TP_PAA.dir\main.cpp.i
 
 CMakeFiles/TP_PAA.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TP_PAA.dir/main.cpp.s"
-	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jharo\CLionProjects\TP_PAA\main.cpp -o CMakeFiles\TP_PAA.dir\main.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jharo\CLionProjects\TP_PAA\main.cpp -o CMakeFiles\TP_PAA.dir\main.cpp.s
 
 CMakeFiles/TP_PAA.dir/MIS.cpp.obj: CMakeFiles/TP_PAA.dir/flags.make
 CMakeFiles/TP_PAA.dir/MIS.cpp.obj: ../MIS.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\jharo\CLionProjects\TP_PAA\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/TP_PAA.dir/MIS.cpp.obj"
-	C:\MinGW\bin\c++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\TP_PAA.dir\MIS.cpp.obj -c C:\Users\jharo\CLionProjects\TP_PAA\MIS.cpp
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\TP_PAA.dir\MIS.cpp.obj -c C:\Users\jharo\CLionProjects\TP_PAA\MIS.cpp
 
 CMakeFiles/TP_PAA.dir/MIS.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/TP_PAA.dir/MIS.cpp.i"
-	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jharo\CLionProjects\TP_PAA\MIS.cpp > CMakeFiles\TP_PAA.dir\MIS.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jharo\CLionProjects\TP_PAA\MIS.cpp > CMakeFiles\TP_PAA.dir\MIS.cpp.i
 
 CMakeFiles/TP_PAA.dir/MIS.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/TP_PAA.dir/MIS.cpp.s"
-	C:\MinGW\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jharo\CLionProjects\TP_PAA\MIS.cpp -o CMakeFiles\TP_PAA.dir\MIS.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jharo\CLionProjects\TP_PAA\MIS.cpp -o CMakeFiles\TP_PAA.dir\MIS.cpp.s
 
 # Object files for target TP_PAA
 TP_PAA_OBJECTS = \

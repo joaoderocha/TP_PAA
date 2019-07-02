@@ -321,3 +321,60 @@ void generateComplementoTxt(){
     out.close();
 
 }
+
+
+void generateSat(const string& arquivo) {
+    ifstream ios(arquivo, fstream::in);
+    int aux,x=0;
+    vector<pair<int,unordered_set<int>>> matriz;
+    ios >> aux;
+    while(!ios.eof()) {// crio todos os vertices da matriz incluindo os que nao tem variavel
+        ios >> aux;
+        matriz.emplace_back();
+        matriz[x].first=aux;
+        x++;
+    }
+
+    for(int i=0;i<matriz.size();i+=3){ // adiciono arestas a todos elementos da mesma clausula
+        // primeira variavel
+        matriz[i].second.insert(i+1);
+        matriz[i].second.insert(i+2);
+        // segunda variavel
+        matriz[i+1].second.insert(i);
+        matriz[i+1].second.insert(i+2);
+        // terceira variavel
+        matriz[i+2].second.insert(i);
+        matriz[i+2].second.insert(i+1);
+    }
+    for(int i=0;i<matriz.size();i++){ // adiciono arestas aos vertices que se o oposto uns dos outros
+        for(int j=i+3;j<matriz.size();j+=3){
+            if(matriz[i].first != 2 && matriz[j].first != 2){
+                if(matriz[i].first == !matriz[j].first){
+                    matriz[i].second.insert(j);
+                    matriz[j].second.insert(i);
+
+                }
+
+            }
+        }
+    }
+    for(auto a = matriz.begin();a != matriz.end();++a){ // removo os vertices nao existentes
+        if(a->first == 2){
+            matriz.erase(a);
+            a--;
+        }
+    }
+    x=0;
+    for(const auto& a : matriz){
+        cout <<"vetice"<< x << "    " << a.first << "<------- valor do vertice ||| adjacentes ---->";
+        for(auto b : a.second){
+            cout << b <<" ";
+        }
+        cout << endl;
+        x++;
+    }
+
+
+
+    ios.close();
+}
