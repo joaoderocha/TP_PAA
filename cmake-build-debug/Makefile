@@ -176,6 +176,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles\TP_PAA.dir\build.make CMakeFiles/TP_PAA.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+mypair.obj: mypair.cpp.obj
+
+.PHONY : mypair.obj
+
+# target to build an object file
+mypair.cpp.obj:
+	$(MAKE) -f CMakeFiles\TP_PAA.dir\build.make CMakeFiles/TP_PAA.dir/mypair.cpp.obj
+.PHONY : mypair.cpp.obj
+
+mypair.i: mypair.cpp.i
+
+.PHONY : mypair.i
+
+# target to preprocess a source file
+mypair.cpp.i:
+	$(MAKE) -f CMakeFiles\TP_PAA.dir\build.make CMakeFiles/TP_PAA.dir/mypair.cpp.i
+.PHONY : mypair.cpp.i
+
+mypair.s: mypair.cpp.s
+
+.PHONY : mypair.s
+
+# target to generate assembly for a file
+mypair.cpp.s:
+	$(MAKE) -f CMakeFiles\TP_PAA.dir\build.make CMakeFiles/TP_PAA.dir/mypair.cpp.s
+.PHONY : mypair.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -191,6 +218,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... mypair.obj
+	@echo ... mypair.i
+	@echo ... mypair.s
 .PHONY : help
 
 

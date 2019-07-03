@@ -1,35 +1,35 @@
+#include <queue>
 #include "MIS.h"
+#include "mypair.h"
 
 unordered_set<int> solution;
 //int bst = 0;
 int ninst =0;
+vector<pair<int,unordered_set<int>>> G;
+priority_queue<mypair> S;
+
+
+
+
 
 int findMSI() {
 
-    vector<unordered_set<int>> G = loadGraph(); // inicializo lista de adjacencias para cada vertice
+    G = loadGraph(); // inicializo lista de adjacencias para cada vertice
 #if defined(DEBUG)
     int i=0;
     for(const auto& a: G){
         cout << " vertice " << i << " adjacentes: ";
-        for(auto b : a){
+        for(auto b : a.second){
             cout << b << " ";
         }
         i++;
         cout << endl;
     }
 #endif
-    unordered_set<int> A;
-    unordered_set<int> I;
-    int best=0;
-    // Inicializa todos vertices por nao serem explorados ainda.
-    for (int x = 0; x < G.size(); x++) {
-        A.insert(x);
-    }
     // Inicializa o conjunto de solucoes vazio
-    I.empty();
     auto t1 = high_resolution_clock::now();
-    best = 0;//greedy(G);
-    best = maximumIndependent(G,I,A,best);
+    int best = 0;//greedy(G);
+    best = MIS(best);
     auto t2 = high_resolution_clock::now();
     duration<double> time_span = duration_cast<duration<double> >(t2 - t1);
     // Inicia a busca pelo conjunto independente maximo
@@ -50,7 +50,7 @@ int findMSI() {
     return 0;
 }
 
-int maximumIndependent(vector<unordered_set<int>>const& G, unordered_set<int> I, unordered_set<int> A,int bi){
+int maximumIndependent(vector<pair<int,unordered_set<int>>> G, unordered_set<int> I, unordered_set<int> A,int bi){
     int bs=0;
 
     if(A.empty()){
@@ -81,7 +81,7 @@ int maximumIndependent(vector<unordered_set<int>>const& G, unordered_set<int> I,
     if(I.insert(aux).second){ // Se aux pode ser adicionado na solucao atual
 
         if(!A.empty()) {
-            for (auto a : G[aux]) { // tira dos que podem ser adicionados a solucao os vizinhos de aux
+            for (auto a : G[aux].second) { // tira dos que podem ser adicionados a solucao os vizinhos de aux
                 A.erase(a);
             }
         }
@@ -90,10 +90,10 @@ int maximumIndependent(vector<unordered_set<int>>const& G, unordered_set<int> I,
 
         I.erase(aux);
 
-        if(teste(G.size(),countEdge(G,A2)) > bi) {
+        if(teste(G.size(),countEdge(A2)) > bi) {
             bs = maximumIndependent(G, I2, A2, I2.size());
         }
-        if(teste(G.size(),countEdge(G,A1)) > bi) {
+        if(teste(G.size(),countEdge(A1)) > bi) {
             bs = max(maximumIndependent(G, I, A1, I.size()), bs);
         }
         if(solution.size() < I2.size()){
@@ -105,11 +105,64 @@ int maximumIndependent(vector<unordered_set<int>>const& G, unordered_set<int> I,
 
 
     }else{
-        if(teste(G.size(),countEdge(G,A1)) > bi)
+        if(teste(G.size(),countEdge(A1)) > bi)
             bs = maximumIndependent(G,I,A1,I.size());
     }
     return bs;
 }
+
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "ArgumentSelectionDefectsInspection"
+int MIS(const int& bi){
+    int bs = bi,aux;
+    unordered_set<int> I;
+    unordered_set<int> A;
+    for (int x = 0; x < G.size(); x++) {
+        A.insert(x);
+    }
+    S.push(make_mypair(I,A));
+    while(!S.empty()) {
+        I = S.top().first();
+        A = S.top().second();
+        S.pop();
+        if (!A.empty()) {
+            aux = *A.begin();
+            A.erase(aux);
+            unordered_set<int> A1(A);
+            if (I.insert(aux).second) {
+                if (!A.empty()) {
+                    for (auto a : G[aux].second) { // tira dos que podem ser adicionados a solucao os vizinhos de aux
+                        A.erase(a);
+                    }
+                }
+                 // copia dos adjacentes da melhor solucao atual
+                unordered_set<int> I2(I); // copia da melhor solucao atual
+
+                I.erase(aux);
+
+                if(I2.size()+A.size() > bs){ // coloco
+                    S.push(make_mypair(I2,A));
+                    if(I2.size() > bs){
+                        bs = I2.size();
+                    }
+                }
+                if(I.size()+A1.size() > bs){ // nao coloco
+                    S.push(make_mypair(I,A1));
+                }
+
+
+            }else{
+                S.push(make_mypair(I,A1));
+            }
+        }
+
+    }
+
+
+    return bs;
+}
+#pragma clang diagnostic pop
+
 
 /*
  * Objetivo: Inicializa uma matriz binaria para o grafo
@@ -132,21 +185,21 @@ int maximumIndependent(vector<unordered_set<int>>const& G, unordered_set<int> I,
  * 3 - fecha arquivo
  * 4 - retorne X
  */
-vector<unordered_set<int>> loadGraph(const string& arquivo){
+vector<pair<int,unordered_set<int>>> loadGraph(const string& arquivo){
     ifstream ios(arquivo,fstream::in);
 
     int size;
     int aux;
     ios >> size;
-    vector<unordered_set<int>> matriz(size,unordered_set<int>());
+    vector<pair<int,unordered_set<int>>> matriz(size,make_pair(0,unordered_set<int>()));
     int i=0,j=0;
-
+    cout << matriz.size() << " size \n";
     while(!ios.eof()){
         if(i >= j && i < size){
             ios >> aux;
             if(aux == 1){
-                matriz[i].insert(j);
-                matriz[j].insert(i);
+                matriz[i].second.insert(j);
+                matriz[j].second.insert(i);
             }
             j++;
         }else{
@@ -161,7 +214,7 @@ vector<unordered_set<int>> loadGraph(const string& arquivo){
     i=0;
     for(const auto& a: matriz){
         cout << " vertice " << i << " adjacentes: ";
-        for(auto b : a){
+        for(auto b : a.second){
             cout << b << " ";
         }
         i++;
@@ -174,21 +227,21 @@ vector<unordered_set<int>> loadGraph(const string& arquivo){
 /*
  * Gera o complemento do grafo dado
  */
-vector<unordered_set<int>> loadGraphComplemento(const string& arquivo){
+vector<pair<int,unordered_set<int>>> loadGraphComplemento(const string& arquivo){
     ifstream ios(arquivo,fstream::in);
 
     int size;
     int aux;
     ios >> size;
-    vector<unordered_set<int>> matriz(size,unordered_set<int>());
+    vector<pair<int,unordered_set<int>>> matriz(size,make_pair(0,unordered_set<int>()));
     int i=0,j=0;
 
     while(!ios.eof()){
         if(i >= j && i < size){
             ios >> aux;
             if(aux == 0){
-                matriz[i].insert(j);
-                matriz[j].insert(i);
+                matriz[i].second.insert(j);
+                matriz[j].second.insert(i);
             }
             j++;
         }else{
@@ -203,7 +256,7 @@ vector<unordered_set<int>> loadGraphComplemento(const string& arquivo){
     i=0;
     for(const auto& a: matriz){
         cout << " vertice " << i << " adjacentes: ";
-        for(auto b : a){
+        for(auto b : a.second){
             cout << b << " ";
         }
         i++;
@@ -212,7 +265,7 @@ vector<unordered_set<int>> loadGraphComplemento(const string& arquivo){
 #endif
     int indice =0;
     for(auto& x : matriz){
-        x.erase(indice);
+        x.second.erase(indice);
         indice++;
     }
     ios.close();
@@ -229,7 +282,7 @@ vector<unordered_set<int>> loadGraphComplemento(const string& arquivo){
  */
 int greedy(vector<unordered_set<int>> G){
     unordered_set<int> I;
-    while(check(G)) {
+    while(check()) {
         int min = numeric_limits<int>::max();
         int indice = -1, i;
         for (i = 0; i < G.size(); i++) {
@@ -252,9 +305,9 @@ int greedy(vector<unordered_set<int>> G){
  * retorna verdadeiro caso encontre um vertice com elementos adjacentes a ele
  * e falso caso contrario.
  */
-bool check(const vector<unordered_set<int>>& G){
+bool check(){
     for(auto & pos : G){
-        if(!pos.empty()){
+        if(!pos.second.empty()){
             return true;
         }
     }
@@ -270,11 +323,11 @@ bool check(const vector<unordered_set<int>>& G){
  * 2 - Para cada elemento presente em A, verifique em G o numero de adjacentes.
  * 3 - retorne n/2
  */
-int countEdge(vector<unordered_set<int>>const& G, unordered_set<int>const& A){
+int countEdge( unordered_set<int>const& A){
     int counter=0;
     if(!A.empty()) {
         for (int pos : A) {
-            for (int pos2 : G[pos]) {
+            for (int pos2 : G[pos].second) {
                 if (A.find(pos2) != A.end()) {
                     counter++;
                 }
@@ -323,7 +376,7 @@ void generateComplementoTxt(){
 }
 
 
-void generateSat(const string& arquivo) {
+vector<pair<int,unordered_set<int>>> generateSat(const string& arquivo) {
     ifstream ios(arquivo, fstream::in);
     int aux,x=0;
     vector<pair<int,unordered_set<int>>> matriz;
@@ -377,4 +430,5 @@ void generateSat(const string& arquivo) {
 
 
     ios.close();
+    return matriz;
 }

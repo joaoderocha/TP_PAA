@@ -7,8 +7,12 @@
 #IncludeRegexTransform: 
 
 C:/Users/jharo/CLionProjects/TP_PAA/MIS.cpp
+queue
+-
 MIS.h
 C:/Users/jharo/CLionProjects/TP_PAA/MIS.h
+mypair.h
+C:/Users/jharo/CLionProjects/TP_PAA/mypair.h
 
 C:/Users/jharo/CLionProjects/TP_PAA/MIS.h
 iostream
@@ -26,5 +30,9 @@ algorithm
 chrono
 -
 cmath
+-
+
+C:/Users/jharo/CLionProjects/TP_PAA/mypair.h
+unordered_set
 -
 

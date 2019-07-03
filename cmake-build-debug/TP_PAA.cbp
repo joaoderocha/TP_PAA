@@ -89,6 +89,12 @@
 		<Unit filename="C:/Users/jharo/CLionProjects/TP_PAA/main.cpp">
 			<Option target="TP_PAA"/>
 		</Unit>
+		<Unit filename="C:/Users/jharo/CLionProjects/TP_PAA/mypair.cpp">
+			<Option target="TP_PAA"/>
+		</Unit>
+		<Unit filename="C:/Users/jharo/CLionProjects/TP_PAA/mypair.h">
+			<Option target="TP_PAA"/>
+		</Unit>
 		<Unit filename="C:/Users/jharo/CLionProjects/TP_PAA/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

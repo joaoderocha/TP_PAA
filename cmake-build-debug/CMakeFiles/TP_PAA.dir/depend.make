@@ -3,7 +3,12 @@
 
 CMakeFiles/TP_PAA.dir/MIS.cpp.obj: ../MIS.cpp
 CMakeFiles/TP_PAA.dir/MIS.cpp.obj: ../MIS.h
+CMakeFiles/TP_PAA.dir/MIS.cpp.obj: ../mypair.h
 
 CMakeFiles/TP_PAA.dir/main.cpp.obj: ../MIS.h
 CMakeFiles/TP_PAA.dir/main.cpp.obj: ../main.cpp
+CMakeFiles/TP_PAA.dir/main.cpp.obj: ../mypair.h
+
+CMakeFiles/TP_PAA.dir/mypair.cpp.obj: ../mypair.cpp
+CMakeFiles/TP_PAA.dir/mypair.cpp.obj: ../mypair.h
 
